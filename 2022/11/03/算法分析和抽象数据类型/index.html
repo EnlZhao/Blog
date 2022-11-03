@@ -1,0 +1,306 @@
+<!DOCTYPE html><html lang="zh-CM" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>大一下 | Enl_Z's Blog</title><meta name="author" content="Enl_Z"><meta name="copyright" content="Enl_Z"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="算法分析和抽象数据类型clock（）：捕捉从程序开始运行到clock（）被调用所耗费的时间。这个时间单位是clock tick，即”时钟打点“。常数CLK_TCK：机器时钟每秒所走的时钟打点数。  C语言  1234567891011121314151617181920#include &lt;stdio.h&gt;#include &lt;time.h&gt;int MyFunction()&amp;#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大一下">
+<meta property="og:url" content="http://enl-z.github.io/2022/11/03/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Enl_Z&#39;s Blog">
+<meta property="og:description" content="算法分析和抽象数据类型clock（）：捕捉从程序开始运行到clock（）被调用所耗费的时间。这个时间单位是clock tick，即”时钟打点“。常数CLK_TCK：机器时钟每秒所走的时钟打点数。  C语言  1234567891011121314151617181920#include &lt;stdio.h&gt;#include &lt;time.h&gt;int MyFunction()&amp;#">
+<meta property="og:locale" content="zh_CM">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/jpeg/27904580/1667476451807-4c00dfe5-cf7a-47e0-bbf9-4d775c4fa0f7.jpeg#clientId=u4e1a247f-b562-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=782&id=ud5c62b0b&margin=%5Bobject%20Object%5D&name=cb30f556584e2ff67859628f762d923.jpg&originHeight=977&originWidth=1080&originalType=binary&ratio=1&rotation=0&showTitle=false&size=152596&status=done&style=none&taskId=u8ba89b10-3372-4842-b167-7c6e79a0327&title=&width=864">
+<meta property="article:published_time" content="2022-11-03T11:43:00.000Z">
+<meta property="article:modified_time" content="2022-11-03T11:43:00.000Z">
+<meta property="article:author" content="Enl_Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2022/jpeg/27904580/1667476451807-4c00dfe5-cf7a-47e0-bbf9-4d775c4fa0f7.jpeg#clientId=u4e1a247f-b562-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=782&id=ud5c62b0b&margin=%5Bobject%20Object%5D&name=cb30f556584e2ff67859628f762d923.jpg&originHeight=977&originWidth=1080&originalType=binary&ratio=1&rotation=0&showTitle=false&size=152596&status=done&style=none&taskId=u8ba89b10-3372-4842-b167-7c6e79a0327&title=&width=864"><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="http://enl-z.github.io/2022/11/03/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":150},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":500,"languages":{"author":"Author: Enl_Z","link":"Link: ","source":"Source: Enl_Z's Blog","info":"Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '大一下',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-11-03 19:43:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2022/08/02/MpuXm1wTiZ5J9Nv.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.nlark.com/yuque/0/2022/jpeg/27904580/1667476451807-4c00dfe5-cf7a-47e0-bbf9-4d775c4fa0f7.jpeg#clientId=u4e1a247f-b562-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=782&amp;id=ud5c62b0b&amp;margin=%5Bobject%20Object%5D&amp;name=cb30f556584e2ff67859628f762d923.jpg&amp;originHeight=977&amp;originWidth=1080&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=152596&amp;status=done&amp;style=none&amp;taskId=u8ba89b10-3372-4842-b167-7c6e79a0327&amp;title=&amp;width=864')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Enl_Z's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">大一下</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-11-03T11:43:00.000Z" title="Created 2022-11-03 19:43:00">2022-11-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-11-03T11:43:00.000Z" title="Updated 2022-11-03 19:43:00">2022-11-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/FDS/">FDS</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>5min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="大一下"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="算法分析和抽象数据类型"><a href="#算法分析和抽象数据类型" class="headerlink" title="算法分析和抽象数据类型"></a>算法分析和抽象数据类型</h1><p>clock（）：捕捉从程序开始运行到clock（）被调用所耗费的时间。这个时间单位是clock tick，即”时钟打点“。<br>常数CLK_TCK：机器时钟每秒所走的时钟打点数。</p>
+<blockquote>
+<p>C语言</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">MyFunction</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">clock_t</span> start, stop;</span><br><span class="line"><span class="comment">/* clock_t 是 clock()函数返回的变量类型 */</span></span><br><span class="line"><span class="type">double</span> duration;</span><br><span class="line"><span class="comment">/* 记录被测函数运行时间，以秒为单位 */</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;<span class="comment">/* 不在测试范围内的准备工作放在clock()调用之前 */</span></span><br><span class="line">    start = clock();	<span class="comment">/* 开始计时 */</span></span><br><span class="line">    MyFunction();</span><br><span class="line">    stop = clock();</span><br><span class="line">    duration = ((<span class="type">double</span>)(stop - start))/CLK_TCK;</span><br><span class="line">    <span class="comment">/* 其他不在测试范围的处理写在后面，例如输出duration的值 */</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a name="xVcFl"></a></p>
+<h1 id="简介-gt-什么是数据结构"><a href="#简介-gt-什么是数据结构" class="headerlink" title="简介-&gt;什么是数据结构"></a>简介-&gt;什么是数据结构</h1><p><a name="kNw9b"></a></p>
+<h2 id="数据对象在计算机中的组织方式"><a href="#数据对象在计算机中的组织方式" class="headerlink" title="数据对象在计算机中的组织方式"></a>数据对象在计算机中的组织方式</h2><p><a name="zkkRQ"></a></p>
+<h3 id="✨逻辑结构"><a href="#✨逻辑结构" class="headerlink" title="✨逻辑结构"></a>✨逻辑结构</h3><p>一对一的结构，叫做”线性结构“</p>
+<blockquote>
+<p>如将所有书排成一列</p>
+</blockquote>
+<p>一对多的逻辑结构，叫做”树型结构“</p>
+<blockquote>
+<p>图书按类分</p>
+</blockquote>
+<p>多对多的复杂关系网，这个关系网叫做”图“<br><a name="i8Cbj"></a></p>
+<h3 id="✨物理存储结构（如数组形式、链表形式……"><a href="#✨物理存储结构（如数组形式、链表形式……" class="headerlink" title="✨物理存储结构（如数组形式、链表形式……"></a>✨物理存储结构（如数组形式、链表形式……</h3><p>描述数据结构<br><a name="qzphG"></a></p>
+<h4 id="抽象数据类型（Abstract-Data-Type）-ADT"><a href="#抽象数据类型（Abstract-Data-Type）-ADT" class="headerlink" title="抽象数据类型（Abstract Data Type）| ADT"></a>抽象数据类型（Abstract Data Type）| ADT</h4><ol>
+<li>数据类型<ol>
+<li>数据对象集</li>
+<li>数据集合相关联的操作集</li>
+</ol>
+</li>
+<li>抽象：描述数据类型的方法不依赖于具体实现<ol>
+<li>与存放和数据的机器无关</li>
+<li>与数据存储的物理结构无关</li>
+<li>与实现操作的算法和编程语言均无关</li>
+</ol>
+</li>
+</ol>
+<p>只描述数据对象集和相关操作集”是什么“，并不涉及”如何做到“的问题<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2022/png/27904580/1659343237988-1e32e236-aed0-48c6-9eea-6135929b5533.png#clientId=uf74e5c40-d564-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=460&id=uab3a70e9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=575&originWidth=860&originalType=binary&ratio=1&rotation=0&showTitle=false&size=414632&status=done&style=none&taskId=u913a6b5d-ea44-4ed9-b5f6-9807d46f610&title=&width=688" alt="image.png"><br>其中的抽象可以从如下看<br>eg：ElementType是通用数据类型（抽象），需要double ，在前面define即可<br>eg：矩阵是用二维数组、一维数组还是十字链表实现的都不重要，只是实现一个矩阵<br>eg：Matrix Add中不在乎按行加还是按列加，用什么语言实现都不在乎<br>✨抽象的好处-&gt;一方面是提高程序的复用性，另一方面，让我们侧重去了解程序的逻辑结构</p>
+<hr>
+<p><a name="X8M7W"></a></p>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><p><a name="nGG37"></a></p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p><a name="fN1oH"></a></p>
+<h3 id="✨算法（Algorithm）"><a href="#✨算法（Algorithm）" class="headerlink" title="✨算法（Algorithm）"></a>✨算法（Algorithm）</h3><ol>
+<li>一个有限指令集</li>
+<li>接受一些输入（有些情况下不需要输入）</li>
+<li>产生输出</li>
+<li>一定在有限步骤之后终止</li>
+<li>每一条指令必须<ol>
+<li>有充分明确的目标，不可以产生歧义</li>
+<li>计算机能处理的范围之内</li>
+<li>描述应不依赖于任何一种计算机语言及具体的实现手段<br><a name="wXFOt"></a></li>
+</ol>
+</li>
+</ol>
+<h2 id="衡量算法的两个指标"><a href="#衡量算法的两个指标" class="headerlink" title="衡量算法的两个指标"></a>衡量算法的两个指标</h2><p><a name="izD40"></a></p>
+<h3 id="✨空间复杂度S-n"><a href="#✨空间复杂度S-n" class="headerlink" title="✨空间复杂度S(n)"></a>✨空间复杂度S(n)</h3><p>根据算法写成的程序在执行时<strong>占用存储单元的长度</strong>。这个长度往往与输入数据的规模有关。空间复杂度过高的算法可能导致使用的内存超限，造成程序非正常中断。<br><a name="FO2Zy"></a></p>
+<h3 id="✨时间复杂度T-n"><a href="#✨时间复杂度T-n" class="headerlink" title="✨时间复杂度T(n)"></a>✨时间复杂度T(n)</h3><p>根据算法写成的程序在执行时<strong>耗费时间的长度</strong>。这个长度往往也与输入数据的规模有关。<br><a name="QR0wP"></a></p>
+<h2 id="复杂度的渐进表示法"><a href="#复杂度的渐进表示法" class="headerlink" title="复杂度的渐进表示法"></a>复杂度的渐进表示法</h2><ol>
+<li>T(n) &#x3D;  O  (f(n)) 表示存在常数C&gt;0, n0 &gt; 0使得当n &gt;&#x3D;  n0时有T(n)&lt;&#x3D;C×f(n)</li>
+<li>T(n) &#x3D;$\Omega$(g(n))表示存在常数C&gt;0，n0&gt;0使得当n&gt;&#x3D;n0时有T(n) &gt;&#x3D; C×g(n)</li>
+<li>T(n) &#x3D;$\Theta$(h(n))表示同时有T(n) &#x3D; O(h(n))和T(n) &#x3D; $\Omega$(h(n))<br><a name="lALu4"></a></li>
+</ol>
+<h2 id="TIPs"><a href="#TIPs" class="headerlink" title="TIPs"></a>TIPs</h2><ol>
+<li>若有两段算法分别有复杂度T1(n) &#x3D; O(f1(n))和T2(n) &#x3D; O(f2(n))，则<ol>
+<li>T1(n) + T2(n) &#x3D; max(O(f1(n)), O(f2(n))) &lt;表示两个算法拼接起来</li>
+<li>T1(n) $\times$T2(n) &#x3D; O(f1(n)$\times$f2(n)) &lt;表示两个算法嵌套起来</li>
+</ol>
+</li>
+<li>若T(n)是关于n的k阶多项式，那么T(n)&#x3D;$\Theta$(nk)</li>
+<li>一个for循环的时间复杂度等于循环次数乘以循环体代码的复杂度</li>
+<li>if-else结构的复杂度取决于if的条件判断复杂度和两个分支部分的复杂度，总体复杂度取三者中最大<br><a name="ZQjKQ"></a></li>
+</ol>
+<h2 id="Checking-Your-Analysis"><a href="#Checking-Your-Analysis" class="headerlink" title="Checking Your Analysis"></a>Checking Your Analysis</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2022/png/27904580/1663673834911-9adee8ce-e352-4f23-9727-6386d1f0083d.png#clientId=u3b6968f0-75d2-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=411&id=ue2d94756&margin=%5Bobject%20Object%5D&name=image.png&originHeight=514&originWidth=699&originalType=binary&ratio=1&rotation=0&showTitle=false&size=172143&status=done&style=none&taskId=u32548eab-1cc6-48bd-aadc-b0568096415&title=&width=559.2" alt="image.png"></p>
+<blockquote>
+<p>一个分析复杂度的方法</p>
+</blockquote>
+<p><a name="rRAIy"></a></p>
+<h2 id="主定理-Master"><a href="#主定理-Master" class="headerlink" title="主定理 | Master"></a>主定理 | Master</h2><p><a name="tdwp7"></a></p>
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>Master定理，又称主定理，用于程序的时间复杂度计算（常用于递归调用算法的时间复杂度）<br><a name="e1nH3"></a></p>
+<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><p>递归算法时间复杂度形如：</p>
+<ol>
+<li>$T(n) &#x3D; O(1), n &#x3D; 1$</li>
+<li>$T(n) &#x3D; aT(\frac{n}{b}) + f(n) , n &gt; 1$</li>
+</ol>
+<p>其中，$a \ge 1; b &gt; 1 ;$$f(n)$表示不参与递归部分的时间复杂度<br>规定$C_{crit}&#x3D;log_ba$</p>
+<blockquote>
+<p>第二条公式表示：将一个规模为n的问题分为$a$个规模为$\frac{n}{b}$子问题，每次递归将带来$f(n)$的额外计算，然后通过对这$a$个子问题的解的综合，得到原问题的解</p>
+</blockquote>
+<p>那么有：</p>
+<ol>
+<li><p>当$f(n) &#x3D; O(n^c)$，且$c &lt; C_{crit}$时有： $T(n) &#x3D; \Theta(n^{C_{crit}})$</p>
+<blockquote>
+<p>eg：<br>$T(n) &#x3D; 8T(\frac{n}{2}) + 1000n^2$<br>此时$a&#x3D;8, b&#x3D;2, f(n)&#x3D;1000n^2$<br>$c&#x3D;2&lt;3&#x3D;log_ba&#x3D;C_{crit}$<br>故 $T(n)&#x3D;\Theta(n^3)$</p>
+</blockquote>
+</li>
+<li><p>当$f(n)&#x3D;O(n^c)$, 且$c &gt; C_{crit}$时有：$T(n)&#x3D;\Theta(f(n))$</p>
+<blockquote>
+<p>eg:<br>$T(n) &#x3D; 2T(\frac{n}{2}) + n^2$<br>此时$a&#x3D;2, b&#x3D;2, f(n)&#x3D;n^2$<br>$c&#x3D;2 &gt; 1&#x3D;log_ba&#x3D;C_{crit}$<br>故$T(n)&#x3D;\Theta(n^2)$</p>
+</blockquote>
+</li>
+<li><p>若存在非负整数$k$，使得$f(n)&#x3D;\Theta(n^{C_{crit}}log_kn)$，那么$T(n)&#x3D;\Theta(n^{C_{crit}}log_{k+1}n)$</p>
+<blockquote>
+<p>参考：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/nwnu-daizh/p/8652285.html">算法时间复杂度分析方法 - 代祖华 - 博客园</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/water-mi/p/9794604.html">Master定理学习笔记 - water_mi - 博客园</a></li>
+</ol>
+</blockquote>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://enl-z.github.io">Enl_Z</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://enl-z.github.io/2022/11/03/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">http://enl-z.github.io/2022/11/03/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.nlark.com/yuque/0/2022/jpeg/27904580/1667476451807-4c00dfe5-cf7a-47e0-bbf9-4d775c4fa0f7.jpeg#clientId=u4e1a247f-b562-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=782&amp;id=ud5c62b0b&amp;margin=%5Bobject%20Object%5D&amp;name=cb30f556584e2ff67859628f762d923.jpg&amp;originHeight=977&amp;originWidth=1080&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=152596&amp;status=done&amp;style=none&amp;taskId=u8ba89b10-3372-4842-b167-7c6e79a0327&amp;title=&amp;width=864" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> Donate</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://od.lk/s/NjZfNDIyNzA3NDZf/dfb485e806eba514c603be51996beee.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://od.lk/s/NjZfNDIyNzA3NDZf/dfb485e806eba514c603be51996beee.jpg"/></a><div class="post-qr-code-desc"></div></li><li class="reward-item"><a href="/null" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/null" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/08/02/%E5%A4%A7%E4%B8%80%E4%B8%8B/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://od.lk/s/NjZfNDIyNzE0MTVf/jhk-1659446298147.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">大一下</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="lv-container" data-id="city" data-uid="MTAyMC81NjkzMy8zMzM5Nw=="></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2022/08/02/MpuXm1wTiZ5J9Nv.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Enl_Z</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/enl-z"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/enl-z" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:EZhao1997@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">I am a lazy boy</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">算法分析和抽象数据类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B-gt-%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">简介-&gt;什么是数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%AF%B9%E8%B1%A1%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E7%BB%84%E7%BB%87%E6%96%B9%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">数据对象在计算机中的组织方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9C%A8%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84"><span class="toc-number">2.1.1.</span> <span class="toc-text">✨逻辑结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9C%A8%E7%89%A9%E7%90%86%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84%EF%BC%88%E5%A6%82%E6%95%B0%E7%BB%84%E5%BD%A2%E5%BC%8F%E3%80%81%E9%93%BE%E8%A1%A8%E5%BD%A2%E5%BC%8F%E2%80%A6%E2%80%A6"><span class="toc-number">2.1.2.</span> <span class="toc-text">✨物理存储结构（如数组形式、链表形式……</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%88Abstract-Data-Type%EF%BC%89-ADT"><span class="toc-number">2.1.2.1.</span> <span class="toc-text">抽象数据类型（Abstract Data Type）| ADT</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%97%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">3.1.</span> <span class="toc-text">定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9C%A8%E7%AE%97%E6%B3%95%EF%BC%88Algorithm%EF%BC%89"><span class="toc-number">3.1.1.</span> <span class="toc-text">✨算法（Algorithm）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A1%E9%87%8F%E7%AE%97%E6%B3%95%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%8C%87%E6%A0%87"><span class="toc-number">3.2.</span> <span class="toc-text">衡量算法的两个指标</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9C%A8%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6S-n"><span class="toc-number">3.2.1.</span> <span class="toc-text">✨空间复杂度S(n)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9C%A8%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6T-n"><span class="toc-number">3.2.2.</span> <span class="toc-text">✨时间复杂度T(n)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E7%9A%84%E6%B8%90%E8%BF%9B%E8%A1%A8%E7%A4%BA%E6%B3%95"><span class="toc-number">3.3.</span> <span class="toc-text">复杂度的渐进表示法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TIPs"><span class="toc-number">3.4.</span> <span class="toc-text">TIPs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Checking-Your-Analysis"><span class="toc-number">3.5.</span> <span class="toc-text">Checking Your Analysis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E5%AE%9A%E7%90%86-Master"><span class="toc-number">3.6.</span> <span class="toc-text">主定理 | Master</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">3.6.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%B3%95"><span class="toc-number">3.6.2.</span> <span class="toc-text">用法</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/11/03/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="大一下"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.nlark.com/yuque/0/2022/jpeg/27904580/1667476451807-4c00dfe5-cf7a-47e0-bbf9-4d775c4fa0f7.jpeg#clientId=u4e1a247f-b562-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=782&amp;id=ud5c62b0b&amp;margin=%5Bobject%20Object%5D&amp;name=cb30f556584e2ff67859628f762d923.jpg&amp;originHeight=977&amp;originWidth=1080&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=152596&amp;status=done&amp;style=none&amp;taskId=u8ba89b10-3372-4842-b167-7c6e79a0327&amp;title=&amp;width=864" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="大一下"/></a><div class="content"><a class="title" href="/2022/11/03/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E5%92%8C%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="大一下">大一下</a><time datetime="2022-11-03T11:43:00.000Z" title="Created 2022-11-03 19:43:00">2022-11-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/02/%E5%A4%A7%E4%B8%80%E4%B8%8B/" title="大一下"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://od.lk/s/NjZfNDIyNzE0MTVf/jhk-1659446298147.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="大一下"/></a><div class="content"><a class="title" href="/2022/08/02/%E5%A4%A7%E4%B8%80%E4%B8%8B/" title="大一下">大一下</a><time datetime="2022-08-02T13:27:00.000Z" title="Created 2022-08-02 21:27:00">2022-08-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/02/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%86%B3%E5%AE%9A%E5%81%9A%E8%BF%99%E4%B8%AA%E7%BD%91%E9%A1%B5/" title="为什么决定做这个网页"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2022/08/02/sRtfpBAZPb7Xdxa.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="为什么决定做这个网页"/></a><div class="content"><a class="title" href="/2022/08/02/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%86%B3%E5%AE%9A%E5%81%9A%E8%BF%99%E4%B8%AA%E7%BD%91%E9%A1%B5/" title="为什么决定做这个网页">为什么决定做这个网页</a><time datetime="2022-08-02T01:00:00.000Z" title="Created 2022-08-02 09:00:00">2022-08-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 By Enl_Z</div><div class="footer_custom_text">This web is for <a href="https://enl-z.github.io/">everyone</a>👀!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="Toggle Between Traditional Chinese And Simplified Chinese">繁</button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="Chat"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadLivere () {
+  if (typeof LivereTower === 'object') {
+    window.LivereTower.init()
+  }
+  else {
+    (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  }
+}
+
+if ('Livere' === 'Livere' || !true) {
+  if (true) btf.loadComment(document.getElementById('lv-container'), loadLivere)
+  else loadLivere()
+}
+else {
+  function loadOtherComment () {
+    loadLivere()
+  }
+}</script></div><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script src="//code.tidio.co/djfbavomigdswrbbyyv5mb7owa8lkzrd.js" async="async"></script><script>function onTidioChatApiReady() {
+  window.tidioChatApi.hide();
+  window.tidioChatApi.on("close", function() {
+    window.tidioChatApi.hide();
+  });
+}
+if (window.tidioChatApi) {
+  window.tidioChatApi.on("ready", onTidioChatApiReady);
+} else {
+  document.addEventListener("tidioChat-ready", onTidioChatApiReady);
+}
+
+var chatBtnFn = () => {
+  document.getElementById("chat_btn").addEventListener("click", function(){
+    window.tidioChatApi.show();
+    window.tidioChatApi.open();
+  });
+}
+chatBtnFn()
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
