@@ -1,7 +1,7 @@
 @font-face{
     font-family: 'JetBrainsMono';
     font-display: swap;
-    src: url('../font/JetBrainsMono-Regular.ttf') format("truetype");
+    src: url('../font/JetBrainsMono-Italic-VariableFont_wght.ttf') format("truetype");
 }
 
 body {
