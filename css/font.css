@@ -1,0 +1,9 @@
+@font-face{
+    font-family: 'JetBrainsMono';
+    font-display: swap;
+    src: url('../font/JetBrainsMono-Regular.ttf') format("truetype");
+}
+
+body {
+    font-family: "Microsoft YaHei", 'JetBrainsMono';
+}
